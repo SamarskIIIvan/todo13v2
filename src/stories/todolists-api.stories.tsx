@@ -5,16 +5,22 @@ export default {
     title: 'API'
 }
 const settings = {
-    withCredentials: true
+    withCredentials: true,
+    headers: {
+        'API-KEY': '32a2fb05-a0a6-4dbc-999f-c58d152b8cf3'
+    }
+
 }
 
 
 export const GetTodolists = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
+        debugger
         axios.get('https://social-network.samuraijs.com/api/1.1/todo-lists',
             settings)
             .then((res)=>{
+                debugger
                 setState(res.data)
             })
 
@@ -25,6 +31,10 @@ export const GetTodolists = () => {
 export const CreateTodolist = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
+        axios.post('https://social-network.samuraijs.com/api/1.1/todo-lists',{title:"NEWTODOLIST"},settings)
+            .then((res)=>{
+                setState(res.data)
+            })
     }, [])
 
     return <div> {JSON.stringify(state)}</div>
