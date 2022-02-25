@@ -1,15 +1,8 @@
 import React, {useEffect, useState} from 'react'
-import axios from "axios";
+import {todolistAPI} from "../api/todolist-api";
 
 export default {
     title: 'API'
-}
-const settings = {
-    withCredentials: true,
-    headers: {
-        'API-KEY': '32a2fb05-a0a6-4dbc-999f-c58d152b8cf3'
-    }
-
 }
 
 
@@ -17,10 +10,8 @@ export const GetTodolists = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
         debugger
-        axios.get('https://social-network.samuraijs.com/api/1.1/todo-lists',
-            settings)
+       todolistAPI.getTodolists()
             .then((res)=>{
-                debugger
                 setState(res.data)
             })
 
@@ -31,7 +22,7 @@ export const GetTodolists = () => {
 export const CreateTodolist = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        axios.post('https://social-network.samuraijs.com/api/1.1/todo-lists',{title:"NEWTODOLIST"},settings)
+        todolistAPI.createTodolist("NEWTODOLIST")
             .then((res)=>{
                 setState(res.data)
             })
@@ -42,8 +33,8 @@ export const CreateTodolist = () => {
 export const DeleteTodolist = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        const todolistId = '';
-        axios.delete(`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}`, settings)
+       const todolistId ='ca969b95-fa47-4beb-9f14-0b9f83b38ed8'
+       todolistAPI.deleteTodolist(todolistId)
             .then( (res) => {
             setState(res.data);
         })
@@ -56,8 +47,7 @@ export const DeleteTodolist = () => {
 export const UpdateTodolistTitle = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        const todolistId = 'e37ce488-02e7-44c3-82a7-bd145ee4111a'
-        axios.put(`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}`, {title: 'Programmer'}, settings)
+        todolistAPI.updateTodolist('e37ce488-02e7-44c3-82a7-bd145ee4111a','Programmer')
             .then((res) => {
                 setState(res.data)
             })
